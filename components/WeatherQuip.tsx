@@ -3,7 +3,23 @@ import axios from 'axios';
 import { Card } from './Card';
 
 interface WeatherQuipProps {
-  weatherData: any;
+  weatherData: {
+    current_conditions: {
+      air_temperature: number;
+      feels_like: number;
+      conditions: string;
+      relative_humidity: number;
+      wind_avg: number;
+      uv: number;
+    };
+    forecast: {
+      daily: Array<{
+        air_temp_high: number;
+        air_temp_low: number;
+        precip_probability: number;
+      }>;
+    };
+  };
 }
 
 export function WeatherQuip({ weatherData }: WeatherQuipProps) {

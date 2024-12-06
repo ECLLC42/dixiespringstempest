@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { WeatherIcon } from '@/components/WeatherIcon';
+import { WeatherIcon, IconType } from '@/components/WeatherIcon';
 import { Card } from '@/components/Card';
 import { WeatherMetric } from '@/components/WeatherMetric';
 import { useWeatherSocket } from './hooks/useWeatherSocket';
@@ -95,7 +95,7 @@ export default function Home() {
                   Feels like {Math.round(current.feels_like)}°
                 </div>
                 <div className="flex items-center gap-2 mt-4">
-                  <WeatherIcon type={current.icon as any} className="w-8 h-8" />
+                  <WeatherIcon type={current.icon as IconType} className="w-8 h-8" />
                   <span className="text-xl">{current.conditions}</span>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function Home() {
                   <div className="text-gray-400 text-sm">
                     {new Date(day.sunrise * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
                   </div>
-                  <WeatherIcon type={day.icon as any} className="w-8 h-8 mx-auto my-2" />
+                  <WeatherIcon type={day.icon as IconType} className="w-8 h-8 mx-auto my-2" />
                   <div className="flex justify-center gap-2 text-sm font-medium">
                     <span>{Math.round(day.air_temp_high)}°</span>
                     <span className="text-gray-400">{Math.round(day.air_temp_low)}°</span>

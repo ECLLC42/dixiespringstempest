@@ -1,16 +1,14 @@
 import { useEffect, useRef } from 'react';
 
-interface WeatherData {
-  timestamp: number;
-  temperature?: number;
-  humidity?: number;
-  wind?: number;
-  conditions?: string;
+interface WebSocketData {
+  type: string;
+  obs?: number[][];
+  // Add other properties as needed
 }
 
-export function useWeatherSocket(onData: (data: any) => void) {
-  const dataBuffer = useRef<WeatherData>({
-    timestamp: Date.now()
+export function useWeatherSocket(onData: (data: WebSocketData) => void) {
+  const dataBuffer = useRef<WebSocketData>({
+    type: ""
   });
   const timeoutRef = useRef<NodeJS.Timeout>();
 
@@ -20,7 +18,7 @@ export function useWeatherSocket(onData: (data: any) => void) {
     const processData = () => {
       if (Object.keys(dataBuffer.current).length > 1) {
         onData(dataBuffer.current);
-        dataBuffer.current = { timestamp: Date.now() };
+        dataBuffer.current = { type: "" };
       }
     };
 
@@ -45,9 +43,7 @@ export function useWeatherSocket(onData: (data: any) => void) {
         if (data.type === 'obs_st') {
           dataBuffer.current = {
             ...dataBuffer.current,
-            temperature: data.obs[0][7],
-            humidity: data.obs[0][8],
-            wind: data.obs[0][2]
+            obs: data.obs
           };
         }
 

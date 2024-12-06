@@ -1,4 +1,4 @@
-type IconType = 'partly-cloudy' | 'clear' | 'cloudy';
+export type IconType = 'partly-cloudy' | 'clear' | 'cloudy';
 
 interface WeatherIconProps {
   type: IconType;
