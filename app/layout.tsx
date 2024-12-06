@@ -4,6 +4,15 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Tempest Weather | Sugarhouse Park',
   description: 'Real-time weather conditions and forecast for Sugarhouse Park, Salt Lake City. Powered by Tempest Weather System.',
+  manifest: '/manifest.json',
+  icons: {
+    icon: [
+      { url: '/favicon.svg' },
+      { url: '/favicon.svg', type: 'image/svg+xml' }
+    ],
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: 'Tempest Weather | Sugarhouse Park',
     description: 'Real-time weather conditions and forecast for Sugarhouse Park, Salt Lake City',
@@ -19,10 +28,6 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
 }
 
 export default function RootLayout({
@@ -32,6 +37,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="alternate icon" href="/favicon.svg" />
+        <link rel="mask-icon" href="/favicon.svg" color="#FDB813" />
+      </head>
       <body className="bg-gradient-to-br from-dark to-gray-900 text-white min-h-screen antialiased">
         {children}
       </body>
