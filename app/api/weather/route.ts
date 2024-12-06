@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const stationId = process.env.TEMPEST_STATION_ID;
   const token = process.env.NEXT_PUBLIC_TEMPEST_TOKEN;
 
