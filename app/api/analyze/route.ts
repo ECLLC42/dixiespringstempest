@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         }
       ],
       temperature: 1.2,
-      max_tokens: 100,
+      max_tokens: 50,
       presence_penalty: 0.6,
       frequency_penalty: 0.5,
       top_p: 0.93

@@ -51,7 +51,7 @@ export function WeatherQuip({ weatherData }: WeatherQuipProps) {
 
   return (
     <div 
-      className="fixed bottom-4 right-4 max-w-sm z-50"
+      className="fixed bottom-4 right-4 max-w-[80%] md:max-w-sm z-50"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -60,9 +60,10 @@ export function WeatherQuip({ weatherData }: WeatherQuipProps) {
         ${isHovered ? 'transform scale-105' : ''}
         bg-gradient-to-br from-weather-blue/20 to-weather-purple/20
         backdrop-blur-lg border border-white/10
+        w-full md:w-auto
       `}>
         <div className="flex items-start gap-3">
-          <div className="relative">
+          <div className="relative flex-shrink-0">
             <div className={`
               text-4xl transform transition-transform duration-500
               ${isHovered ? 'rotate-12 scale-110' : ''}
@@ -75,7 +76,7 @@ export function WeatherQuip({ weatherData }: WeatherQuipProps) {
               ${isLoading ? 'animate-ping' : ''}
             `} />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {isLoading ? (
               <div className="space-y-2">
                 <div className="animate-pulse h-4 w-48 bg-white/10 rounded" />
@@ -87,6 +88,7 @@ export function WeatherQuip({ weatherData }: WeatherQuipProps) {
                   text-sm font-medium leading-snug
                   transform transition-all duration-300
                   ${isHovered ? 'scale-102' : ''}
+                  break-words
                 `}>
                   {quip}
                 </div>
