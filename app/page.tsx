@@ -66,9 +66,9 @@ export default function Home() {
   }, []);
 
   // WebSocket updates
-  useWeatherSocket((data) => {
+  useWeatherSocket((data: { type: string }) => {
     if (data.type === 'obs_st') {
-      fetchData(); // Refresh data when we get a new observation
+      fetchData();
     }
   });
 
