@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
             - Low: ${forecast.daily[0].air_temp_low}°F
             - Precipitation chance: ${forecast.daily[0].precip_probability}%
 
-            Create a short, witty comment about this weather (max 2 sentences). Focus on unusual conditions or make weather puns.
+            Create a one sentance, witty comment about this weather. Focus on unusual conditions or make weather puns.
           `
         }
       ],
