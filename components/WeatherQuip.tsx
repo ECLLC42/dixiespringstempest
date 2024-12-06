@@ -4,8 +4,30 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card } from './Card';
 
+interface WeatherConditions {
+  air_temperature: number;
+  feels_like: number;
+  conditions: string;
+  relative_humidity: number;
+  wind_avg: number;
+  uv: number;
+}
+
+interface ForecastDay {
+  air_temp_high: number;
+  air_temp_low: number;
+  precip_probability: number;
+}
+
+interface WeatherData {
+  current_conditions: WeatherConditions;
+  forecast: {
+    daily: ForecastDay[];
+  };
+}
+
 interface WeatherQuipProps {
-  weatherData: any;
+  weatherData: WeatherData;
 }
 
 export function WeatherQuip({ weatherData }: WeatherQuipProps) {

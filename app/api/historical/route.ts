@@ -12,6 +12,13 @@ interface RawObservation {
   [index: number]: number;
 }
 
+interface ErrorResponse {
+  status: number;
+  data?: unknown;
+  headers?: unknown;
+  message?: string;
+}
+
 export async function GET() {
   const deviceId = process.env.NEXT_PUBLIC_DEVICE_ID;
   const token = process.env.NEXT_PUBLIC_TEMPEST_TOKEN;
@@ -90,12 +97,20 @@ export async function GET() {
       }
     });
 
-  } catch (error: any) {
-    console.error('Historical data fetch error:', error.message);
+  } catch (error: unknown) {
+    const errorResponse = error as ErrorResponse;
+    console.error('Historical data fetch error:', errorResponse.message);
+    if (errorResponse.status) {
+      console.error('Error response:', {
+        status: errorResponse.status,
+        data: errorResponse.data,
+        headers: errorResponse.headers
+      });
+    }
     return NextResponse.json(
       { 
         error: 'Failed to fetch historical data',
-        details: error.message
+        details: errorResponse.message
       }, 
       { status: 500 }
     );

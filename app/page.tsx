@@ -72,7 +72,7 @@ export default function Home() {
   }, []);
 
   // WebSocket updates
-  useWeatherSocket((data: { type: string }) => {
+  useWeatherSocket((data: { type: string; obs?: number[][] }) => {
     if (data.type === 'obs_st') {
       fetchData();
     }
