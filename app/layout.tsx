@@ -7,14 +7,13 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
     ],
+    shortcut: '/icon.png',
     apple: [
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      { rel: 'apple-touch-icon', url: '/apple-icon.png' },
     ],
   },
   openGraph: {
@@ -42,7 +41,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='8' fill='%23FDB813'/><path d='M16 6V2M16 30V26M6 16H2M30 16H26M8.9 8.9L6 6M26 26L23.1 23.1M8.9 23.1L6 26M26 6L23.1 8.9' stroke='%23FDB813' stroke-width='2.5' stroke-linecap='round'/></svg>" />
+        <link rel="shortcut icon" href="/icon.png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
       </head>
       <body className="bg-gradient-to-br from-dark to-gray-900 text-white min-h-screen antialiased">
         <header className="w-full py-6 px-4 md:px-8">
