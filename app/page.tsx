@@ -6,6 +6,7 @@ import { WeatherIcon } from '@/components/WeatherIcon';
 import { Card } from '@/components/Card';
 import { WeatherMetric } from '@/components/WeatherMetric';
 import { useWeatherSocket } from './hooks/useWeatherSocket';
+import { WeatherQuip } from '@/components/WeatherQuip';
 
 interface WeatherData {
   current_conditions: {
@@ -158,6 +159,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
+      {weatherData && <WeatherQuip weatherData={weatherData} />}
     </main>
   );
 }
