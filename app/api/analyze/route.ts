@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
             - Low: ${forecast.daily[0].air_temp_low}°F
             - Precipitation chance: ${forecast.daily[0].precip_probability}%
 
-            Create a one sentance, witty comment about this weather. Focus on unusual conditions or make weather puns. Use pop culture references if possible and emojis.
+            Create a one sentance, SUPER SARCASTIC  and borderline  comment about this weather. Use pop culture references if possible and emojis.
           `
         }
       ],

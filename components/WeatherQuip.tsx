@@ -1,31 +1,18 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card } from './Card';
 
 interface WeatherQuipProps {
-  weatherData: {
-    current_conditions: {
-      air_temperature: number;
-      feels_like: number;
-      conditions: string;
-      relative_humidity: number;
-      wind_avg: number;
-      uv: number;
-    };
-    forecast: {
-      daily: Array<{
-        air_temp_high: number;
-        air_temp_low: number;
-        precip_probability: number;
-      }>;
-    };
-  };
+  weatherData: any;
 }
 
 export function WeatherQuip({ weatherData }: WeatherQuipProps) {
-  const [quip, setQuip] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [quip, setQuip] = useState<string | null>(null);
+  const [showQuip, setShowQuip] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getQuip = async () => {
@@ -36,18 +23,22 @@ export function WeatherQuip({ weatherData }: WeatherQuipProps) {
           forecast: weatherData.forecast
         });
         setQuip(response.data.message);
+        // Set a 750ms delay before showing the quip
+        setTimeout(() => {
+          setShowQuip(true);
+          setIsLoading(false);
+        }, 750);
       } catch (error) {
         console.error('Error getting weather quip:', error);
         setQuip('Weather so nice, even my AI is speechless! 🤐');
-      } finally {
         setIsLoading(false);
       }
     };
 
-    if (weatherData) {
-      getQuip();
-    }
+    getQuip();
   }, [weatherData]);
+
+  if (!quip || !showQuip) return null;
 
   return (
     <div 

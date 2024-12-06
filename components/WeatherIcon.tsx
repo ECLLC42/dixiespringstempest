@@ -46,4 +46,31 @@ export function WeatherIcon({ type, className = "w-16 h-16" }: WeatherIconProps)
   };
 
   return icons[type] || null;
+}
+
+export function getWeatherEmoji(conditions: string, temp: number, precip: number): string {
+  // Temperature based modifiers
+  if (temp > 90) return '🥵';  // Hot
+  if (temp < 32) return '🥶';  // Freezing
+
+  // Precipitation based
+  if (precip > 70) {
+    if (conditions.toLowerCase().includes('snow')) return '🌨️';
+    if (conditions.toLowerCase().includes('thunder')) return '⛈️';
+    return '🌧️';
+  }
+
+  // Main conditions
+  const conditionsLower = conditions.toLowerCase();
+  if (conditionsLower.includes('clear')) return '☀️';
+  if (conditionsLower.includes('partly cloudy')) return '⛅';
+  if (conditionsLower.includes('mostly cloudy')) return '🌥️';
+  if (conditionsLower.includes('cloudy')) return '☁️';
+  if (conditionsLower.includes('rain')) return '🌧️';
+  if (conditionsLower.includes('snow')) return '🌨️';
+  if (conditionsLower.includes('thunder')) return '⛈️';
+  if (conditionsLower.includes('fog')) return '🌫️';
+  if (conditionsLower.includes('wind')) return '💨';
+
+  return '🌡️'; // Default
 } 

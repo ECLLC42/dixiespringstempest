@@ -7,6 +7,8 @@ import { Card } from '@/components/Card';
 import { WeatherMetric } from '@/components/WeatherMetric';
 import { useWeatherSocket } from './hooks/useWeatherSocket';
 import { WeatherQuip } from '@/components/WeatherQuip';
+import { WeatherCharts } from '@/components/WeatherCharts';
+import { getWeatherEmoji } from '@/components/WeatherIcon';
 
 interface WeatherData {
   current_conditions: {
@@ -46,12 +48,17 @@ interface WeatherData {
 
 export default function Home() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [historicalData, setHistoricalData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/api/weather');
-      setWeatherData(response.data);
+      const [weatherRes, historicalRes] = await Promise.all([
+        axios.get('/api/weather'),
+        axios.get('/api/historical')
+      ]);
+      setWeatherData(weatherRes.data);
+      setHistoricalData(historicalRes.data);
     } catch (err) {
       setError('Failed to fetch weather data');
       console.error('Error fetching data:', err);
@@ -60,7 +67,6 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-    // Refresh every minute
     const interval = setInterval(fetchData, 60 * 1000);
     return () => clearInterval(interval);
   }, []);
@@ -85,6 +91,7 @@ export default function Home() {
 
         {/* Content */}
         <div className="relative">
+          {/* Current Conditions */}
           <section className="mb-12">
             <Card className="text-center mb-8">
               <div className="flex flex-col items-center">
@@ -95,7 +102,10 @@ export default function Home() {
                   Feels like {Math.round(current.feels_like)}°
                 </div>
                 <div className="flex items-center gap-2 mt-4">
-                  <WeatherIcon type={current.icon as IconType} className="w-8 h-8" />
+                  <WeatherIcon 
+                    type={current.icon as IconType} 
+                    className="w-8 h-8" 
+                  />
                   <span className="text-xl">{current.conditions}</span>
                 </div>
               </div>
@@ -130,7 +140,7 @@ export default function Home() {
           </section>
 
           {/* Forecast */}
-          <section className="space-y-6">
+          <section className="space-y-6 mb-12">
             <h2 className="text-xl font-light px-2">5-Day Forecast</h2>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {weatherData.forecast.daily.slice(0, 5).map((day) => (
@@ -141,7 +151,12 @@ export default function Home() {
                   <div className="text-gray-400 text-sm">
                     {new Date(day.sunrise * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
                   </div>
-                  <WeatherIcon type={day.icon as IconType} className="w-8 h-8 mx-auto my-2" />
+                  <div className="flex flex-col items-center gap-1 my-2">
+                    <WeatherIcon type={day.icon as IconType} className="w-8 h-8" />
+                    <div className="text-2xl">
+                      {getWeatherEmoji(day.conditions, day.air_temp_high, day.precip_probability)}
+                    </div>
+                  </div>
                   <div className="flex justify-center gap-2 text-sm font-medium">
                     <span>{Math.round(day.air_temp_high)}°</span>
                     <span className="text-gray-400">{Math.round(day.air_temp_low)}°</span>
@@ -153,6 +168,9 @@ export default function Home() {
               ))}
             </div>
           </section>
+
+          {/* Historical Charts */}
+          {historicalData && <WeatherCharts data={historicalData} />}
 
           <div className="mt-8 text-sm text-gray-400 text-center">
             Last updated: {new Date(current.timestamp * 1000).toLocaleString()}
