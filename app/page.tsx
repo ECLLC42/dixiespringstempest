@@ -9,6 +9,7 @@ import { useWeatherSocket } from './hooks/useWeatherSocket';
 import { WeatherQuip } from '@/components/WeatherQuip';
 import { WeatherCharts } from '@/components/WeatherCharts';
 import { getWeatherEmoji } from '@/components/WeatherIcon';
+import WeatherRadar from '@/components/WeatherRadar';
 
 interface WeatherData {
   current_conditions: {
@@ -179,6 +180,11 @@ export default function Home() {
       </div>
       
       {weatherData && <WeatherQuip weatherData={weatherData} />}
+
+      <section className="mb-12">
+        <h2 className="text-xl font-light px-2 mb-4">Utah Weather Radar</h2>
+        <WeatherRadar />
+      </section>
     </main>
   );
 }

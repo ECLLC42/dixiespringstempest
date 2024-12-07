@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
 
+// Add cache configuration
+export const revalidate = 3600; // Cache for 1 hour (3600 seconds)
+
 export async function GET() {
   const stationId = process.env.TEMPEST_STATION_ID;
   const token = process.env.NEXT_PUBLIC_TEMPEST_TOKEN;
@@ -37,3 +40,5 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch weather data' }, { status: 500 });
   }
 } 
+
+</```rewritten_file>
