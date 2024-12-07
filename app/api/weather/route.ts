@@ -40,5 +40,3 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch weather data' }, { status: 500 });
   }
 } 
-
-</```rewritten_file>
