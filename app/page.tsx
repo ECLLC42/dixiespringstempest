@@ -88,10 +88,10 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-4 h-full">
                     {/* Temperature Card */}
                     <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <div className="text-[60px] md:text-[80px] font-light leading-none tracking-tight">
+                      <div className="text-[80px] md:text-[100px] font-medium leading-none tracking-tight">
                         {Math.round(current.air_temperature)}°
                       </div>
-                      <div className="text-lg md:text-xl font-light text-gray-300 mt-2">
+                      <div className="text-xl md:text-2xl font-light text-gray-300 mt-2">
                         Feels like {Math.round(current.feels_like)}°
                       </div>
                       <div className="flex items-center gap-1.5 mt-2">
@@ -105,7 +105,10 @@ export default function Home() {
 
                     {/* Humidity Card */}
                     <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <span className="text-4xl mb-2">💧</span>
+                      <div className="relative mb-1">
+                        <span className="text-4xl bg-gradient-to-br from-blue-400 to-blue-600 text-transparent bg-clip-text">💧</span>
+                        <span className="absolute -top-2 -right-2 text-2xl bg-gradient-to-br from-blue-300 to-blue-500 text-transparent bg-clip-text">💧</span>
+                      </div>
                       <div className="text-2xl md:text-3xl font-medium">
                         {current.relative_humidity}%
                       </div>
@@ -116,7 +119,7 @@ export default function Home() {
 
                     {/* Pressure Card */}
                     <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <span className="text-4xl mb-2">🌡️</span>
+                      <span className="text-4xl mb-2 bg-gradient-to-br from-red-400 to-orange-500 text-transparent bg-clip-text">🌡️</span>
                       <div className="text-2xl md:text-3xl font-medium">
                         {current.station_pressure.toFixed(2)}
                       </div>
@@ -127,7 +130,7 @@ export default function Home() {
 
                     {/* Wind Speed Card */}
                     <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <span className="text-4xl mb-2">🌪️</span>
+                      <span className="text-4xl mb-2 bg-gradient-to-br from-gray-300 to-gray-500 text-transparent bg-clip-text">🌪️</span>
                       <div className="text-2xl md:text-3xl font-medium">
                         {current.wind_avg} mph
                       </div>
