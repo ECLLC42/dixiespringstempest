@@ -38,9 +38,10 @@ interface WeatherChartsProps {
       end_time: number;
     };
   };
+  showOnly?: ('temperature' | 'humidity' | 'rain')[];
 }
 
-export function WeatherCharts({ data }: WeatherChartsProps) {
+export function WeatherCharts({ data, showOnly }: WeatherChartsProps) {
   const chartData = data.obs;
 
   const options = {
@@ -88,10 +89,10 @@ export function WeatherCharts({ data }: WeatherChartsProps) {
   };
 
   return (
-    <div className="mt-8 space-y-6">
-      <h2 className="text-base font-light px-2">Historical Data (5 Days)</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6">
+    <div className="space-y-6">
+      {(!showOnly || showOnly.includes('temperature')) && (
+        <div className="space-y-2">
+          <h3 className="text-sm font-light">Temperature History</h3>
           <Line 
             options={options} 
             data={{
@@ -108,7 +109,11 @@ export function WeatherCharts({ data }: WeatherChartsProps) {
             }} 
           />
         </div>
-        <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6">
+      )}
+
+      {(!showOnly || showOnly.includes('humidity')) && (
+        <div className="space-y-2">
+          <h3 className="text-sm font-light">Humidity History</h3>
           <Line 
             options={options} 
             data={{
@@ -125,7 +130,11 @@ export function WeatherCharts({ data }: WeatherChartsProps) {
             }} 
           />
         </div>
-        <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6">
+      )}
+
+      {(!showOnly || showOnly.includes('rain')) && (
+        <div className="space-y-2">
+          <h3 className="text-sm font-light">Rain History</h3>
           <Line 
             options={options} 
             data={{
@@ -142,7 +151,7 @@ export function WeatherCharts({ data }: WeatherChartsProps) {
             }} 
           />
         </div>
-      </div>
+      )}
     </div>
   );
 } 

@@ -1,105 +1,145 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Card } from './Card';
+import type { Map as LeafletMap } from 'leaflet';
+import L from 'leaflet';
 
-interface RadarFrame {
-  time: number;
-  path: string;
+type WeatherLayer = 
+  | 'clouds_new'        // Clouds
+  | 'precipitation_new' // Precipitation
+  | 'temp_new';        // Temperature
+
+const layerNames: Record<WeatherLayer, string> = {
+  clouds_new: 'Clouds',
+  precipitation_new: 'Precipitation',
+  temp_new: 'Temperature'
+};
+
+interface WeatherRadarProps {
+  lat?: number;
+  lon?: number;
+  zoom?: number;
 }
 
-interface RadarData {
-  version: string;
-  generated: number;
-  host: string;
-  radar: {
-    past: RadarFrame[];
-    nowcast: RadarFrame[];
-  };
+interface WeatherLayerState {
+  id: WeatherLayer;
+  active: boolean;
+  opacity: number;
 }
 
-export default function WeatherRadar() {
-  const [data, setData] = useState<RadarData | null>(null);
-  const [loading, setLoading] = useState(true);
+export default function WeatherRadar({ 
+  lat = 39.8283,
+  lon = -98.5795,
+  zoom = 3
+}: WeatherRadarProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [map, setMap] = useState<LeafletMap | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [currentFrame, setCurrentFrame] = useState<number>(0);
-  const [imageError, setImageError] = useState<string | null>(null);
+  const [activeLayers] = useState<WeatherLayerState[]>([
+    { id: 'temp_new', active: true, opacity: 0.6 },
+    { id: 'clouds_new', active: true, opacity: 0.6 },
+    { id: 'precipitation_new', active: true, opacity: 0.6 },
+  ]);
+  const [weatherLayers, setWeatherLayers] = useState<Map<WeatherLayer, L.TileLayer>>(new Map());
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
 
+  // Initialize map only once
   useEffect(() => {
-    async function fetchRadarData() {
-      try {
-        const response = await fetch('https://api.rainviewer.com/public/weather-maps.json');
-        const json = await response.json();
-        console.log('Radar API response:', json);
-        setData(json);
-        setLoading(false);
-      } catch (err) {
-        console.error('Radar fetch error:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch radar');
-        setLoading(false);
-      }
+    if (typeof window === 'undefined' || !mapRef.current || mapInstanceRef.current) return;
+
+    try {
+      mapInstanceRef.current = L.map(mapRef.current).setView([lat, lon], zoom);
+      
+      // Base layer
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB',
+        maxZoom: 19
+      }).addTo(mapInstanceRef.current);
+
+      setMap(mapInstanceRef.current);
+    } catch (err) {
+      console.error('Map initialization error:', err);
+      setError('Failed to initialize map');
     }
 
-    fetchRadarData();
-  }, []);
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, [lat, lon, zoom]);
 
-  // Update frame every 500ms
+  // Update weather layers management
   useEffect(() => {
-    if (!data) return;
+    if (!map) return;
 
-    const frames = [...data.radar.past, ...data.radar.nowcast];
-    console.log('Total frames:', frames.length);
-    console.log('Current frame:', frames[currentFrame]);
+    try {
+      // Update existing layers and create new ones as needed
+      activeLayers.forEach(layerState => {
+        const existingLayer = weatherLayers.get(layerState.id);
+        
+        if (layerState.active) {
+          if (!existingLayer) {
+            // Create new layer if it doesn't exist
+            const newLayer = L.tileLayer(
+              `https://tile.openweathermap.org/map/${layerState.id}/{z}/{x}/{y}.png?appid=338c51713e8f96295248dfd14c3f7451`,
+              { opacity: layerState.opacity }
+            );
 
-    const interval = setInterval(() => {
-      setCurrentFrame((prev) => (prev + 1) % frames.length);
-    }, 500);
+            newLayer.on('tileerror', (e: L.TileErrorEvent) => {
+              console.error('Tile error:', e);
+              setError('Weather layer failed to load');
+            });
 
-    return () => clearInterval(interval);
-  }, [data, currentFrame]);
+            newLayer.addTo(map);
+            setWeatherLayers(prev => new Map(prev).set(layerState.id, newLayer));
+          } else {
+            // Update existing layer
+            existingLayer.setOpacity(layerState.opacity);
+            if (!map.hasLayer(existingLayer)) {
+              existingLayer.addTo(map);
+            }
+          }
+        } else if (existingLayer) {
+          // Remove inactive layers
+          existingLayer.remove();
+        }
+      });
 
-  if (loading) return <Card>Loading radar...</Card>;
-  if (error) return <Card>Error: {error}</Card>;
-  if (!data) return <Card>No radar data available</Card>;
-
-  const frames = [...data.radar.past, ...data.radar.nowcast];
-  const frame = frames[currentFrame];
-  const imageUrl = `${data.host}${frame.path}/256/7/40.7608/-111.8910/1/1_1.png`;
-  console.log('Image URL:', imageUrl);
+      setIsLoading(false);
+    } catch (err) {
+      console.error('Weather layer error:', err);
+      setError('Failed to load weather layer');
+    }
+  }, [map, activeLayers, weatherLayers]);
 
   return (
-    <Card>
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <p className="text-lg">Weather Radar</p>
-          <p className="text-sm text-gray-400">
-            {new Date(frame.time * 1000).toLocaleTimeString()}
-          </p>
+    <Card className="h-full">
+      <div className="flex flex-col h-full">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-light">Weather Map</h2>
         </div>
-        <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-          {imageError && (
-            <div className="absolute inset-0 flex items-center justify-center text-red-500">
-              {imageError}
+
+        <div 
+          ref={mapRef}
+          className="flex-1 w-full rounded-lg overflow-hidden relative"
+          style={{ background: '#1a1a1a', minHeight: '300px' }}
+        >
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50">
+              Loading map...
             </div>
           )}
-          <img 
-            src={imageUrl}
-            alt="Weather Radar"
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              console.error('Image load error:', e);
-              setImageError('Failed to load radar image');
-            }}
-            onLoad={() => {
-              console.log('Image loaded successfully');
-              setImageError(null);
-            }}
-          />
-        </div>
-        <div className="text-xs text-gray-400">
-          Frame {currentFrame + 1} of {frames.length}
+          {error && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50 text-red-500">
+              {error}
+            </div>
+          )}
         </div>
       </div>
     </Card>
   );
-} 
+}
