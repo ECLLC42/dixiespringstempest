@@ -83,57 +83,61 @@ export default function Home() {
             {/* Left Column: Current Conditions */}
             <div className="h-full flex flex-col">
               <Card className="text-center flex-1">
-                <div className="flex flex-col items-center justify-center h-full">
-                  <div className="text-[70px] md:text-[105px] font-light leading-none tracking-tight">
-                    {Math.round(current.air_temperature)}°
-                  </div>
-                  <div className="text-base md:text-lg font-light text-gray-300">
-                    Feels like {Math.round(current.feels_like)}°
-                  </div>
-                  <div className="flex items-center gap-1.5 mt-1.5">
-                    <WeatherIcon 
-                      type={current.icon as IconType} 
-                      className="w-5 h-5" 
-                    />
-                    <span className="text-base">{current.conditions}</span>
+                <div className="flex flex-col h-full p-4">
+                  {/* Grid of 4 equal cards */}
+                  <div className="grid grid-cols-2 gap-4 h-full">
+                    {/* Temperature Card */}
+                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
+                      <div className="text-[60px] md:text-[80px] font-light leading-none tracking-tight">
+                        {Math.round(current.air_temperature)}°
+                      </div>
+                      <div className="text-lg md:text-xl font-light text-gray-300 mt-2">
+                        Feels like {Math.round(current.feels_like)}°
+                      </div>
+                      <div className="flex items-center gap-1.5 mt-2">
+                        <WeatherIcon 
+                          type={current.icon as IconType} 
+                          className="w-5 h-5" 
+                        />
+                        <span className="text-base">{current.conditions}</span>
+                      </div>
+                    </div>
+
+                    {/* Humidity Card */}
+                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
+                      <span className="text-4xl mb-2">💧</span>
+                      <div className="text-2xl md:text-3xl font-medium">
+                        {current.relative_humidity}%
+                      </div>
+                      <div className="text-base text-gray-400">
+                        Humidity
+                      </div>
+                    </div>
+
+                    {/* Pressure Card */}
+                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
+                      <span className="text-4xl mb-2">🌡️</span>
+                      <div className="text-2xl md:text-3xl font-medium">
+                        {current.station_pressure.toFixed(2)}
+                      </div>
+                      <div className="text-base text-gray-400">
+                        Pressure ({current.pressure_trend})
+                      </div>
+                    </div>
+
+                    {/* Wind Speed Card */}
+                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
+                      <span className="text-4xl mb-2">🌪️</span>
+                      <div className="text-2xl md:text-3xl font-medium">
+                        {current.wind_avg} mph
+                      </div>
+                      <div className="text-base text-gray-400">
+                        Wind Speed
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Card>
-
-              <div className="grid grid-cols-2 gap-2 mt-4">
-                <WeatherMetric
-                  icon="💧"
-                  value={`${current.relative_humidity}%`}
-                  label="Humidity"
-                  iconClassName="text-blue-400"
-                  valueClassName="text-2xl md:text-3xl"
-                  labelClassName="text-base"
-                />
-                <WeatherMetric
-                  icon="🌡️"
-                  value={`${current.station_pressure.toFixed(2)}`}
-                  label={`Pressure (${current.pressure_trend})`}
-                  iconClassName="text-gray-400"
-                  valueClassName="text-2xl md:text-3xl"
-                  labelClassName="text-base"
-                />
-                <WeatherMetric
-                  icon="🌪️"
-                  value={`${current.wind_avg} mph`}
-                  label="Wind Speed"
-                  iconClassName="text-yellow-400"
-                  valueClassName="text-2xl md:text-3xl"
-                  labelClassName="text-base"
-                />
-                <WeatherMetric
-                  icon="☀️"
-                  value={current.uv}
-                  label="UV Index"
-                  iconClassName="text-yellow-500"
-                  valueClassName="text-2xl md:text-3xl"
-                  labelClassName="text-base"
-                />
-              </div>
             </div>
 
             {/* Right Column: Weather Map */}
