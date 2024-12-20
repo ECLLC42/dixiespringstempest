@@ -9,11 +9,11 @@ interface WeatherMetricProps {
 
 export function WeatherMetric({ icon, value, label, iconClassName = '' }: WeatherMetricProps) {
   return (
-    <Card className="flex items-center gap-3">
-      <div className={`text-2xl ${iconClassName}`}>{icon}</div>
+    <Card className="flex items-center gap-2">
+      <div className={`text-xl ${iconClassName}`}>{icon}</div>
       <div>
-        <div className="text-2xl font-medium">{value}</div>
-        <div className="text-gray-400 text-sm">{label}</div>
+        <div className="text-lg font-medium">{value}</div>
+        <div className="text-gray-400 text-xs">{label}</div>
       </div>
     </Card>
   );

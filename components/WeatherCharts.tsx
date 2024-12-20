@@ -56,6 +56,9 @@ export function WeatherCharts({ data }: WeatherChartsProps) {
         },
         ticks: {
           color: 'rgba(255, 255, 255, 0.8)',
+          font: {
+            size: 9
+          }
         }
       },
       x: {
@@ -64,7 +67,10 @@ export function WeatherCharts({ data }: WeatherChartsProps) {
         },
         ticks: {
           color: 'rgba(255, 255, 255, 0.8)',
-          maxTicksLimit: 8
+          maxTicksLimit: 6,
+          font: {
+            size: 9
+          }
         }
       }
     },
@@ -72,16 +78,19 @@ export function WeatherCharts({ data }: WeatherChartsProps) {
       legend: {
         position: 'top' as const,
         labels: {
-          color: 'rgba(255, 255, 255, 0.8)'
+          color: 'rgba(255, 255, 255, 0.8)',
+          font: {
+            size: 10
+          }
         }
       }
     }
   };
 
   return (
-    <div className="mt-12 space-y-8">
-      <h2 className="text-xl font-light px-2">Historical Data (5 Days)</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="mt-8 space-y-6">
+      <h2 className="text-base font-light px-2">Historical Data (5 Days)</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6">
           <Line 
             options={options} 

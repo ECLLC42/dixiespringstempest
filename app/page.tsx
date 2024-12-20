@@ -84,34 +84,34 @@ export default function Home() {
   const current = weatherData.current_conditions;
 
   return (
-    <main className="min-h-screen p-4 md:p-8 max-w-7xl mx-auto">
+    <main className="min-h-screen p-2 md:p-4 max-w-5xl mx-auto">
       <div className="relative">
         {/* Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-weather-blue/30 to-weather-purple/30 rounded-3xl blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-weather-blue/30 to-weather-purple/30 rounded-xl blur-2xl" />
 
         {/* Content */}
         <div className="relative">
           {/* Current Conditions */}
-          <section className="mb-12">
-            <Card className="text-center mb-8">
+          <section className="mb-6">
+            <Card className="text-center mb-4">
               <div className="flex flex-col items-center">
-                <div className="text-[120px] md:text-[180px] font-light leading-none tracking-tight">
+                <div className="text-[70px] md:text-[105px] font-light leading-none tracking-tight">
                   {Math.round(current.air_temperature)}°
                 </div>
-                <div className="text-xl md:text-2xl font-light text-gray-300">
+                <div className="text-base md:text-lg font-light text-gray-300">
                   Feels like {Math.round(current.feels_like)}°
                 </div>
-                <div className="flex items-center gap-2 mt-4">
+                <div className="flex items-center gap-1.5 mt-1.5">
                   <WeatherIcon 
                     type={current.icon as IconType} 
-                    className="w-8 h-8" 
+                    className="w-5 h-5" 
                   />
-                  <span className="text-xl">{current.conditions}</span>
+                  <span className="text-base">{current.conditions}</span>
                 </div>
               </div>
             </Card>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
               <WeatherMetric
                 icon="💧"
                 value={`${current.relative_humidity}%`}
@@ -140,20 +140,20 @@ export default function Home() {
           </section>
 
           {/* Forecast */}
-          <section className="space-y-6 mb-12">
-            <h2 className="text-xl font-light px-2">5-Day Forecast</h2>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <section className="space-y-3 mb-6">
+            <h2 className="text-base font-light px-2">5-Day Forecast</h2>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
               {weatherData.forecast.daily.slice(0, 5).map((day) => (
                 <Card
                   key={`${day.day_num}-${day.month_num}`}
                   className="text-center transition-transform hover:scale-105"
                 >
-                  <div className="text-gray-400 text-sm">
+                  <div className="text-gray-400 text-xs">
                     {new Date(day.sunrise * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
                   </div>
-                  <div className="flex flex-col items-center gap-1 my-2">
-                    <WeatherIcon type={day.icon as IconType} className="w-8 h-8" />
-                    <div className="text-2xl">
+                  <div className="flex flex-col items-center gap-1 my-1">
+                    <WeatherIcon type={day.icon as IconType} className="w-6 h-6" />
+                    <div className="text-xl">
                       {getWeatherEmoji(day.conditions, day.air_temp_high, day.precip_probability)}
                     </div>
                   </div>
@@ -172,7 +172,7 @@ export default function Home() {
           {/* Historical Charts */}
           {historicalData && <WeatherCharts data={historicalData} />}
 
-          <div className="mt-8 text-sm text-gray-400 text-center">
+          <div className="mt-6 text-xs text-gray-400 text-center">
             Last updated: {new Date(current.timestamp * 1000).toLocaleString()}
           </div>
         </div>

@@ -46,8 +46,8 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
       </head>
       <body className="bg-gradient-to-br from-dark to-gray-900 text-white min-h-screen antialiased">
-        <header className="w-full py-6 px-4 md:px-8">
-          <h1 className="text-2xl md:text-3xl font-light text-center bg-clip-text text-transparent bg-gradient-to-r from-weather-blue to-weather-purple">
+        <header className="w-full py-3 px-3 md:px-4">
+          <h1 className="text-lg md:text-xl font-light text-center bg-clip-text text-transparent bg-gradient-to-r from-weather-blue to-weather-purple">
             Tempest Sugarhouse Weather Station
           </h1>
         </header>
