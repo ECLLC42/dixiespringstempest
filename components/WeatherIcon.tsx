@@ -60,17 +60,19 @@ export function getWeatherEmoji(conditions: string, temp: number, precip: number
     return '🌧️';
   }
 
-  // Main conditions
+  // Main conditions - return only one emoji per condition
   const conditionsLower = conditions.toLowerCase();
-  if (conditionsLower.includes('clear')) return '☀️';
-  if (conditionsLower.includes('partly cloudy')) return '⛅';
-  if (conditionsLower.includes('mostly cloudy')) return '🌥️';
-  if (conditionsLower.includes('cloudy')) return '☁️';
+  
+  // Check conditions in order of priority
+  if (conditionsLower.includes('thunder')) return '⛈️';
   if (conditionsLower.includes('rain')) return '🌧️';
   if (conditionsLower.includes('snow')) return '🌨️';
-  if (conditionsLower.includes('thunder')) return '⛈️';
   if (conditionsLower.includes('fog')) return '🌫️';
   if (conditionsLower.includes('wind')) return '💨';
+  if (conditionsLower.includes('mostly cloudy')) return '☁️';
+  if (conditionsLower.includes('partly cloudy')) return '⛅';
+  if (conditionsLower.includes('cloudy')) return '☁️';
+  if (conditionsLower.includes('clear')) return '☀️';
 
   return '🌡️'; // Default
 } 

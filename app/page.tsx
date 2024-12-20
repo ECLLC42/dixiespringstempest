@@ -106,24 +106,32 @@ export default function Home() {
                   value={`${current.relative_humidity}%`}
                   label="Humidity"
                   iconClassName="text-blue-400"
+                  valueClassName="text-2xl md:text-3xl"
+                  labelClassName="text-base"
                 />
                 <WeatherMetric
                   icon="🌡️"
                   value={`${current.station_pressure.toFixed(2)}`}
                   label={`Pressure (${current.pressure_trend})`}
                   iconClassName="text-gray-400"
+                  valueClassName="text-2xl md:text-3xl"
+                  labelClassName="text-base"
                 />
                 <WeatherMetric
                   icon="🌪️"
                   value={`${current.wind_avg} mph`}
                   label="Wind Speed"
                   iconClassName="text-yellow-400"
+                  valueClassName="text-2xl md:text-3xl"
+                  labelClassName="text-base"
                 />
                 <WeatherMetric
                   icon="☀️"
                   value={current.uv}
                   label="UV Index"
                   iconClassName="text-yellow-500"
+                  valueClassName="text-2xl md:text-3xl"
+                  labelClassName="text-base"
                 />
               </div>
             </div>
@@ -145,12 +153,11 @@ export default function Home() {
                     {new Date(day.sunrise * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
                   </div>
                   <div className="flex flex-col items-center gap-1 my-1">
-                    <WeatherIcon type={day.icon as IconType} className="w-6 h-6" />
                     <div className="text-xl">
                       {getWeatherEmoji(day.conditions, day.air_temp_high, day.precip_probability)}
                     </div>
                   </div>
-                  <div className="flex justify-center gap-2 text-sm font-medium">
+                  <div className="flex justify-center gap-2 text-xl md:text-2xl font-medium">
                     <span>{Math.round(day.air_temp_high)}°</span>
                     <span className="text-gray-400">{Math.round(day.air_temp_low)}°</span>
                   </div>
