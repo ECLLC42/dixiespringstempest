@@ -53,14 +53,15 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
       </head>
       <body className="bg-gradient-to-br from-gray-950 to-gray-900 text-white min-h-screen antialiased">
-        <header className="w-full min-h-[3.2rem] md:min-h-[4rem] lg:min-h-[5.6rem] 
-                         px-3 sm:px-5 md:px-7 lg:px-10 py-2.5 md:py-3.5
-                         border-b-2 border-white/10 
-                         backdrop-blur-md fixed top-0 z-50 
-                         bg-gradient-to-r from-weather-blue/30 via-weather-purple/30 to-weather-blue/30">
+        <header className="w-full 
+          min-h-[2.8rem] md:min-h-[3.4rem] lg:min-h-[4.2rem] 
+          px-2 sm:px-4 md:px-6 lg:px-8 py-2 md:py-3
+          border-b-2 border-white/10 
+          backdrop-blur-md fixed top-0 z-50 
+          bg-gradient-to-r from-weather-blue/30 via-weather-purple/30 to-weather-blue/30">
           <div className="max-w-9xl mx-auto h-full relative">
             <div className="h-full flex items-center justify-center">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 
                              font-bold text-center tracking-tight">
                 <span className="weather-text-gradient bg-clip-text text-transparent 
                                 bg-gradient-to-r from-blue-300 via-indigo-300 to-purple-300

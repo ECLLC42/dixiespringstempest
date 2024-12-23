@@ -19,18 +19,18 @@ export function WeatherMetric({
 }: WeatherMetricProps) {
   const sizeClasses = {
     default: {
-      container: 'h-full p-2 md:p-3',
-      wrapper: 'h-full flex flex-col items-center justify-between gap-2 md:gap-3',
-      icon: 'text-xl md:text-2xl lg:text-3xl flex items-center',
-      value: 'text-xl md:text-2xl lg:text-3xl flex items-center',
+      container: 'h-full p-2 md:p-2.5',
+      wrapper: 'h-full flex flex-col items-center justify-between gap-2',
+      icon: 'text-lg md:text-xl lg:text-2xl flex items-center',
+      value: 'text-lg md:text-xl lg:text-2xl flex items-center',
       label: 'text-xs md:text-sm flex items-center'
     },
     large: {
-      container: 'h-full p-3 md:p-4',
-      wrapper: 'h-full flex flex-col items-center justify-between gap-3 md:gap-4',
-      icon: 'text-2xl md:text-3xl lg:text-4xl flex items-center',
-      value: 'text-2xl md:text-3xl lg:text-4xl flex items-center',
-      label: 'text-sm md:text-base flex items-center'
+      container: 'h-full p-2.5 md:p-3',
+      wrapper: 'h-full flex flex-col items-center justify-between gap-2.5 md:gap-3',
+      icon: 'text-xl md:text-2xl lg:text-3xl flex items-center',
+      value: 'text-xl md:text-2xl lg:text-3xl flex items-center',
+      label: 'text-sm flex items-center'
     }
   };
 

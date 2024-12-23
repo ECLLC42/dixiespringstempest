@@ -12,7 +12,7 @@
 @layer base {
   body {
     @apply bg-gradient-to-br from-indigo-950 to-slate-900;
-    @apply text-xl md:text-2xl xl:text-3xl;
+    @apply text-lg md:text-xl xl:text-2xl;
     @apply selection:bg-weather-blue/30 selection:text-white;
   }
 }
@@ -48,5 +48,33 @@
 
   .animate-weather {
     @apply transition-all duration-500 ease-in-out;
+  }
+
+  /* iOS safe area utilities */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Improve touch interactions */
+  .webkit-overflow-scrolling-touch {
+    -webkit-overflow-scrolling: touch;
   }
 }

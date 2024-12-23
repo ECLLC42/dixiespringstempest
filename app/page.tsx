@@ -98,18 +98,25 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-2 md:p-4 max-w-7xl mx-auto">
-      {/* Fixed position tabs */}
-      <div className="fixed top-[5.6rem] left-0 right-0 z-40 bg-gray-950/80 backdrop-blur-sm">
+      {/* Fixed position tabs - Optimized for mobile */}
+      <div className="fixed top-[2.8rem] md:top-[3.4rem] lg:top-[4.2rem] left-0 right-0 z-40 
+                      bg-gray-950/80 backdrop-blur-sm 
+                      safe-top safe-left safe-right"> {/* iOS safe area */}
         <div className="max-w-7xl mx-auto px-2 md:px-4">
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-2 md:py-3 overflow-x-auto 
+                          scrollbar-hide webkit-overflow-scrolling-touch"> {/* iOS momentum scroll */}
             {/* Left side - Tab buttons */}
-            <div className="flex gap-2">
+            <div className="flex gap-1.5 md:gap-2 px-0.5"> {/* Reduced gap, added padding for touch */}
               {['current', 'charts', 'monthly', 'timelapse'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab as any)}
                   className={`
-                    px-4 py-2 rounded-lg transition-all
+                    px-3 md:px-4 py-1.5 md:py-2 
+                    rounded-lg transition-all
+                    whitespace-nowrap
+                    text-sm md:text-base
+                    active:scale-95 /* iOS touch feedback */
                     ${activeTab === tab 
                       ? 'bg-indigo-500/90 text-white font-medium shadow-lg shadow-indigo-500/20' 
                       : 'bg-gray-900/90 text-white/70 hover:bg-gray-800/90 hover:text-white'
@@ -121,37 +128,39 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right side - Station Name - adjusted margin */}
-            <div className="text-sm sm:text-base md:text-lg 
+            {/* Right side - Station Name - Optimized for small screens */}
+            <div className="text-xs sm:text-sm md:text-base 
                             font-light tracking-wide text-gray-300/80
-                            flex items-center gap-2 ml-12">
-              <span className="text-lg md:text-xl">📍</span>
-              <span className="font-medium">Salt Lake City Station&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            flex items-center gap-1.5 ml-3 md:ml-6
+                            shrink-0"> {/* Prevent shrinking */}
+              <span className="text-base md:text-lg">📍</span>
+              <span className="font-medium hidden sm:inline">Salt Lake City Station</span>
+              <span className="font-medium sm:hidden">SLC</span> {/* Short name for mobile */}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Content with proper spacing */}
-      <div className="pt-24">
+      {/* Adjust content spacing to account for new navbar height */}
+      <div className="pt-16 md:pt-20"> {/* Reduced from pt-24 */}
         {/* Content Area */}
         {activeTab === 'current' && (
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-weather-blue/30 to-weather-purple/30 rounded-xl blur-2xl" />
             <div className="relative">
               {/* Main Grid */}
-              <div className="flex flex-col lg:flex-row gap-4 mb-6">
+              <div className="flex flex-col lg:flex-row gap-3 mb-5">
                 {/* Current Conditions */}
-                <div className="flex-1 min-h-[40vh] lg:min-h-[50vh]">
-                  <Card variant="glass" className="text-center h-full p-3 md:p-4">
+                <div className="flex-1 min-h-[35vh] lg:min-h-[45vh]">
+                  <Card variant="glass" className="text-center h-full p-2.5 md:p-3">
                     <div className="flex flex-col h-full gap-4">
                       {/* Temperature Card */}
-                      <div className="glass-panel p-4 flex flex-col items-center justify-between">
-                        <div className="text-[4rem] md:text-[5.5rem] font-medium leading-none tracking-tight text-white">
+                      <div className="glass-panel p-3 flex flex-col items-center justify-between">
+                        <div className="text-[3.4rem] md:text-[4.7rem] font-medium leading-none tracking-tight text-white">
                           {Math.round(current.air_temperature)}°
                         </div>
                         <div className="flex flex-col items-center gap-1">
-                          <div className="text-xl md:text-2xl font-light text-gray-300">
+                          <div className="text-lg md:text-xl font-light text-gray-300">
                             Feels like {Math.round(current.feels_like)}°
                           </div>
                           <div className="text-base md:text-lg font-light text-gray-400">
@@ -192,7 +201,7 @@ export default function Home() {
                 </div>
 
                 {/* Weather Map */}
-                <div className="flex-1 min-h-[40vh] lg:min-h-[50vh]">
+                <div className="flex-1 min-h-[35vh] lg:min-h-[45vh]">
                   <WeatherRadar />
                 </div>
               </div>
