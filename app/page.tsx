@@ -140,10 +140,10 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-br from-weather-blue/30 to-weather-purple/30 rounded-xl blur-2xl" />
             <div className="relative">
               {/* Main Grid */}
-              <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="flex flex-col lg:flex-row gap-4 mb-6">
                 {/* Current Conditions */}
-                <div className="flex-1 h-[485px]">
-                  <Card variant="glass" className="text-center h-full p-4">
+                <div className="flex-1 min-h-[40vh] lg:min-h-[50vh]">
+                  <Card variant="glass" className="text-center h-full p-3 md:p-4">
                     <div className="flex flex-col h-full gap-4">
                       {/* Temperature Card */}
                       <div className="glass-panel p-4 flex flex-col items-center justify-between">
@@ -192,7 +192,7 @@ export default function Home() {
                 </div>
 
                 {/* Weather Map */}
-                <div className="flex-1 h-[485px]">
+                <div className="flex-1 min-h-[40vh] lg:min-h-[50vh]">
                   <WeatherRadar />
                 </div>
               </div>

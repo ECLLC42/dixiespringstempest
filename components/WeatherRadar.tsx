@@ -127,11 +127,11 @@ export default function WeatherRadar({
   }, [map]);
 
   return (
-    <Card variant="glass" className="h-full p-4">
+    <Card variant="glass" className="h-full p-2 md:p-4">
       <div className="h-full">
         <div 
           ref={mapRef}
-          className="w-full h-full rounded-xl overflow-hidden relative 
+          className="w-full h-full min-h-[300px] rounded-xl overflow-hidden relative 
                      bg-gray-900/60 transition-all duration-300
                      glass-panel"
         >
