@@ -2,16 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+:root {
+  --weather-blue: 59, 130, 246;
+  --weather-purple: 147, 51, 234;
+  --weather-warm: 251, 146, 60;
+  --weather-cool: 96, 165, 250;
 }
 
-.animate-gradient {
-  animation: gradient 8s ease infinite;
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-gray-950 to-gray-900;
+    @apply text-xl md:text-2xl xl:text-3xl;
+  }
 }
 
-.bg-300\% {
-  background-size: 300% 300%;
+@layer components {
+  .weather-card {
+    @apply bg-white/10 backdrop-blur-lg rounded-2xl p-4 
+           shadow-2xl shadow-black/20 
+           transition-all duration-300;
+  }
+  
+  .glass-panel {
+    @apply bg-gradient-to-br from-white/20 to-transparent 
+           backdrop-blur-xl border-2 border-white/10 
+           rounded-2xl shadow-2xl;
+  }
+
+  .weather-text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br 
+           from-weather-blue via-white to-weather-purple
+           font-semibold;
+  }
+
+  .temperature-text {
+    @apply text-8xl md:text-9xl xl:text-[12rem] 
+           font-medium tracking-tight;
+  }
+
+  .metric-value {
+    @apply text-2xl md:text-3xl xl:text-4xl 
+           font-medium;
+  }
+
+  .metric-label {
+    @apply text-base md:text-lg xl:text-xl 
+           text-white/80 font-medium;
+  }
+}
+
+@layer utilities {
+  .high-contrast {
+    @apply text-white bg-black/50 
+           shadow-lg shadow-black/20;
+  }
 }

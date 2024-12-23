@@ -29,9 +29,9 @@ interface WeatherLayerState {
 }
 
 export default function WeatherRadar({ 
-  lat = 39.8283,
-  lon = -98.5795,
-  zoom = 3
+  lat = 40.7500,  // Salt Lake City coordinates
+  lon = -111.8833,
+  zoom = 8
 }: WeatherRadarProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [map, setMap] = useState<LeafletMap | null>(null);
@@ -117,25 +117,41 @@ export default function WeatherRadar({
   }, [map, activeLayers, weatherLayers]);
 
   return (
-    <Card className="h-full">
+    <Card variant="glass" className="h-full">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-light">Weather Map</h2>
+          <h2 className="text-2xl font-medium weather-text-gradient">
+            Weather Map
+          </h2>
         </div>
 
         <div 
           ref={mapRef}
-          className="flex-1 w-full rounded-lg overflow-hidden relative"
-          style={{ background: '#1a1a1a', minHeight: '300px' }}
+          className="flex-1 w-full rounded-xl overflow-hidden relative 
+                     bg-gray-900/60 transition-all duration-300
+                     border border-white/10"
+          style={{ height: '300px' }}
         >
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50">
-              Loading map...
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+              <div className="flex flex-col items-center gap-2">
+                <div className="animate-spin rounded-full h-8 w-8 border-2 border-weather-blue border-t-transparent" />
+                <span className="text-sm text-gray-300">Loading map...</span>
+              </div>
             </div>
           )}
           {error && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50 text-red-500">
-              {error}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+              <div className="text-center">
+                <p className="text-xl mb-2 text-red-500">⚠️</p>
+                <p className="text-red-400">{error}</p>
+                <button 
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-4 py-2 bg-weather-blue/20 hover:bg-weather-blue/30 rounded-lg transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
             </div>
           )}
         </div>

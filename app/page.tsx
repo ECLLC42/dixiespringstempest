@@ -45,7 +45,7 @@ const WeatherRadar = dynamic(
 
 export default function Home() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,17 +60,12 @@ export default function Home() {
 
     fetchData();
     
-    // Set up two intervals - one for API updates and one for page refresh
-    const fetchInterval = setInterval(() => {
-      fetchData();
-    }, 60000);
-    const refreshInterval = setInterval(() => {
-      window.location.reload();
-    }, 60000);
+    // Set up interval for API updates
+    const fetchInterval = setInterval(fetchData, 60000); // Update data every minute
 
+    // Clean up interval
     return () => {
       clearInterval(fetchInterval);
-      clearInterval(refreshInterval);
     };
   }, []);
 
@@ -99,54 +94,54 @@ export default function Home() {
                   {/* Grid of 4 equal cards */}
                   <div className="grid grid-cols-2 gap-4 h-full">
                     {/* Temperature Card */}
-                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <div className="text-[80px] md:text-[100px] font-medium leading-none tracking-tight">
+                    <div className="bg-white/5 rounded-xl p-6 flex flex-col items-center justify-center">
+                      <div className="text-[100px] md:text-[120px] font-medium leading-none tracking-tight">
                         {Math.round(current.air_temperature)}°
                       </div>
-                      <div className="text-xl md:text-2xl font-light text-gray-300 mt-2">
+                      <div className="text-2xl md:text-3xl font-light text-gray-300 mt-3">
                         Feels like {Math.round(current.feels_like)}°
                       </div>
-                      <div className="flex items-center gap-1.5 mt-2">
+                      <div className="flex items-center gap-2 mt-3">
                         <WeatherIcon 
                           type={current.icon as IconType} 
-                          className="w-5 h-5" 
+                          className="w-6 h-6"
                         />
-                        <span className="text-base">{current.conditions}</span>
+                        <span className="text-lg">{current.conditions}</span>
                       </div>
                     </div>
 
                     {/* Humidity Card */}
-                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <div className="relative mb-1">
-                        <span className="text-4xl bg-gradient-to-br from-blue-400 to-blue-600 text-transparent bg-clip-text">💧</span>
-                        <span className="absolute -top-2 -right-2 text-2xl bg-gradient-to-br from-blue-300 to-blue-500 text-transparent bg-clip-text">💧</span>
+                    <div className="bg-white/5 rounded-xl p-6 flex flex-col items-center justify-center">
+                      <div className="relative mb-2">
+                        <span className="text-5xl">💧</span>
+                        <span className="absolute -top-2 -right-2 text-3xl">💧</span>
                       </div>
-                      <div className="text-2xl md:text-3xl font-medium">
+                      <div className="text-3xl md:text-4xl font-medium">
                         {current.relative_humidity}%
                       </div>
-                      <div className="text-base text-gray-400">
+                      <div className="text-lg text-gray-400">
                         Humidity
                       </div>
                     </div>
 
                     {/* Pressure Card */}
-                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <span className="text-4xl mb-2 bg-gradient-to-br from-red-400 to-orange-500 text-transparent bg-clip-text">🌡️</span>
-                      <div className="text-2xl md:text-3xl font-medium">
+                    <div className="bg-white/5 rounded-xl p-6 flex flex-col items-center justify-center">
+                      <span className="text-5xl mb-2 bg-gradient-to-br from-red-400 to-orange-500 text-transparent bg-clip-text">🌡️</span>
+                      <div className="text-3xl md:text-4xl font-medium">
                         {current.station_pressure.toFixed(2)}
                       </div>
-                      <div className="text-base text-gray-400">
+                      <div className="text-lg text-gray-400">
                         Pressure ({current.pressure_trend})
                       </div>
                     </div>
 
                     {/* Wind Speed Card */}
-                    <div className="bg-white/5 rounded-xl p-4 flex flex-col items-center justify-center">
-                      <span className="text-4xl mb-2 bg-gradient-to-br from-gray-300 to-gray-500 text-transparent bg-clip-text">🌪️</span>
-                      <div className="text-2xl md:text-3xl font-medium">
+                    <div className="bg-white/5 rounded-xl p-6 flex flex-col items-center justify-center">
+                      <span className="text-5xl mb-2 bg-gradient-to-br from-gray-300 to-gray-500 text-transparent bg-clip-text">🌪️</span>
+                      <div className="text-3xl md:text-4xl font-medium">
                         {current.wind_avg} mph
                       </div>
-                      <div className="text-base text-gray-400">
+                      <div className="text-lg text-gray-400">
                         Wind Speed
                       </div>
                     </div>
@@ -185,8 +180,19 @@ export default function Home() {
             </div>
           </section>
 
-          <div className="mt-4 text-xs text-gray-400 text-center">
-            Last updated: {lastUpdated.toLocaleString()}
+          <div className="mt-4 text-sm text-gray-400 text-center">
+            Last updated: {lastUpdated ? 
+              new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: true,
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              }).format(lastUpdated)
+              : 'Updating...'
+            }
           </div>
         </div>
       </div>

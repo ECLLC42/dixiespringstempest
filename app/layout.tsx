@@ -52,20 +52,23 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
       </head>
-      <body className="bg-gradient-to-br from-dark to-gray-900 text-white min-h-screen antialiased">
-        <header className="w-full h-20 px-4 md:px-6 border-b border-white/10 backdrop-blur-md fixed top-0 z-50 bg-gradient-to-r from-weather-blue/20 via-weather-purple/20 to-weather-blue/20">
-          <div className="max-w-7xl mx-auto h-full flex items-center gap-6">
-            <WeatherLogo className="w-10 h-10" />
-            <h1 className="text-2xl md:text-3xl font-semibold flex-1 text-center py-2">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-weather-blue via-white to-weather-purple animate-gradient bg-300% tracking-wide">
-                Tempest Sugarhouse Weather Station
+      <body className="bg-gradient-to-br from-gray-950 to-gray-900 text-white min-h-screen antialiased">
+        <header className="w-full h-28 px-8 md:px-12 
+                         border-b-2 border-white/10 
+                         backdrop-blur-md fixed top-0 z-50 
+                         bg-gradient-to-r from-weather-blue/30 via-weather-purple/30 to-weather-blue/30">
+          <div className="max-w-9xl mx-auto h-full flex items-center gap-8">
+            <WeatherLogo className="w-16 h-16" />
+            <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold flex-1 text-center">
+              <span className="weather-text-gradient">
+                Tempest Sugarhouse Weather
               </span>
             </h1>
-            <div className="w-10" />
+            <div className="w-16" />
           </div>
         </header>
         
-        <main className="pt-20">
+        <main className="pt-28">
           {children}
         </main>
       </body>
