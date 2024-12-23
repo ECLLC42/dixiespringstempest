@@ -137,7 +137,7 @@ export default function WeatherRadar({
         >
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-              <div className="animate-spin rounded-full h-8 w-8 border-2 border-weather-blue border-t-transparent" />
+              <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-400 border-t-transparent" />
             </div>
           )}
           {error && (
@@ -147,7 +147,7 @@ export default function WeatherRadar({
                 <p className="text-red-400">{error}</p>
                 <button 
                   onClick={() => window.location.reload()}
-                  className="mt-4 px-4 py-2 bg-weather-blue/20 hover:bg-weather-blue/30 rounded-lg transition-colors"
+                  className="mt-4 px-4 py-2 bg-blue-400/20 hover:bg-blue-400/30 rounded-lg transition-colors"
                 >
                   Retry
                 </button>

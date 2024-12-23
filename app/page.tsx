@@ -89,7 +89,7 @@ export default function Home() {
   if (!weatherData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-weather-blue"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-400"></div>
       </div>
     );
   }
@@ -99,12 +99,12 @@ export default function Home() {
   return (
     <main className="min-h-screen p-2 md:p-4 max-w-7xl mx-auto">
       {/* Fixed position tabs - Optimized for mobile */}
-      <div className="fixed top-[2.8rem] md:top-[3.4rem] lg:top-[4.2rem] left-0 right-0 z-40 
-                      bg-gray-950/80 backdrop-blur-sm 
-                      safe-top safe-left safe-right"> {/* iOS safe area */}
+      <div className="fixed top-14 md:top-16 lg:top-18 left-0 right-0 z-40 
+                      bg-gray-950/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-2 md:px-4">
-          <div className="flex items-center justify-between py-2 md:py-3 overflow-x-auto 
-                          scrollbar-hide webkit-overflow-scrolling-touch"> {/* iOS momentum scroll */}
+          <div className="h-12 md:h-14 flex items-center justify-between 
+                          overflow-x-auto scrollbar-hide 
+                          webkit-overflow-scrolling-touch">
             {/* Left side - Tab buttons */}
             <div className="flex gap-1.5 md:gap-2 px-0.5"> {/* Reduced gap, added padding for touch */}
               {['current', 'charts', 'monthly', 'timelapse'].map((tab) => (
@@ -141,12 +141,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Adjust content spacing to account for new navbar height */}
-      <div className="pt-16 md:pt-20"> {/* Reduced from pt-24 */}
+      {/* Adjust content spacing */}
+      <div className="pt-12 md:pt-14"> {/* Match navbar height */}
         {/* Content Area */}
         {activeTab === 'current' && (
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-weather-blue/30 to-weather-purple/30 rounded-xl blur-2xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-xl blur-2xl" />
             <div className="relative">
               {/* Main Grid */}
               <div className="flex flex-col lg:flex-row gap-3 mb-5">
