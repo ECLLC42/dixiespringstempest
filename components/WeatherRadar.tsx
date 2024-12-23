@@ -29,9 +29,9 @@ interface WeatherLayerState {
 }
 
 export default function WeatherRadar({ 
-  lat = 40.7500,  // Salt Lake City coordinates
-  lon = -111.8833,
-  zoom = 8
+  lat = 45.0,  // Center of North America (approximately)
+  lon = -100.0, // Center of North America (approximately)
+  zoom = 3      // Zoomed out to show the continent
 }: WeatherRadarProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [map, setMap] = useState<LeafletMap | null>(null);
@@ -116,28 +116,28 @@ export default function WeatherRadar({
     }
   }, [map, activeLayers, weatherLayers]);
 
-  return (
-    <Card variant="glass" className="h-full">
-      <div className="flex flex-col h-full">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-2xl font-medium weather-text-gradient">
-            Weather Map
-          </h2>
-        </div>
+  // Add this useEffect to style the Leaflet container
+  useEffect(() => {
+    if (map) {
+      // Add custom styles to Leaflet container
+      const container = map.getContainer();
+      container.style.border = '1px solid rgba(255, 255, 255, 0.1)'; // Matches the glass-panel border
+      container.style.borderRadius = '0.75rem'; // 12px to match rounded-xl
+    }
+  }, [map]);
 
+  return (
+    <Card variant="glass" className="h-full p-4">
+      <div className="h-full">
         <div 
           ref={mapRef}
-          className="flex-1 w-full rounded-xl overflow-hidden relative 
+          className="w-full h-full rounded-xl overflow-hidden relative 
                      bg-gray-900/60 transition-all duration-300
-                     border border-white/10"
-          style={{ height: '300px' }}
+                     glass-panel"
         >
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-              <div className="flex flex-col items-center gap-2">
-                <div className="animate-spin rounded-full h-8 w-8 border-2 border-weather-blue border-t-transparent" />
-                <span className="text-sm text-gray-300">Loading map...</span>
-              </div>
+              <div className="animate-spin rounded-full h-8 w-8 border-2 border-weather-blue border-t-transparent" />
             </div>
           )}
           {error && (

@@ -1,8 +1,10 @@
-export function WeatherLogo({ className = "" }: { className?: string }) {
+export function WeatherLogo() {
   return (
-    <div className={`relative ${className} transition-transform hover:scale-110`}>
-      <span className="text-2xl absolute -left-1 top-0 text-weather-blue animate-pulse">☀️</span>
-      <span className="text-xl absolute -left-2 top-1 text-weather-purple opacity-80 hover:opacity-100 transition-opacity">☁️</span>
+    <div className="flex items-center gap-2">
+      <div className="text-2xl">🌪️</div>
+      <div className="font-light tracking-wide text-xl">
+        Salt Lake City Station
+      </div>
     </div>
   );
 } 

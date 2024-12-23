@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import { WeatherLogo } from '@/components/WeatherLogo'
 
 export const metadata: Metadata = {
-  title: 'Tempest Weather | Sugarhouse Park',
-  description: 'Real-time weather conditions and forecast for Sugarhouse Park, Salt Lake City. Powered by Tempest Weather System.',
+  title: 'TempestVue',
+  description: 'Real-time weather visualization dashboard for Salt Lake City',
   manifest: '/manifest.json',
   icons: {
     icon: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Tempest Weather | Sugarhouse Park',
-    description: 'Real-time weather conditions and forecast for Sugarhouse Park, Salt Lake City',
+    description: 'Real-time weather conditions and forecast for Salt Lake City',
     url: 'https://sugarhouse-tempest.vercel.app',
     siteName: 'Tempest Weather',
     images: [
@@ -53,22 +53,26 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
       </head>
       <body className="bg-gradient-to-br from-gray-950 to-gray-900 text-white min-h-screen antialiased">
-        <header className="w-full h-28 px-8 md:px-12 
+        <header className="w-full min-h-[3.2rem] md:min-h-[4rem] lg:min-h-[5.6rem] 
+                         px-3 sm:px-5 md:px-7 lg:px-10 py-2.5 md:py-3.5
                          border-b-2 border-white/10 
                          backdrop-blur-md fixed top-0 z-50 
                          bg-gradient-to-r from-weather-blue/30 via-weather-purple/30 to-weather-blue/30">
-          <div className="max-w-9xl mx-auto h-full flex items-center gap-8">
-            <WeatherLogo className="w-16 h-16" />
-            <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold flex-1 text-center">
-              <span className="weather-text-gradient">
-                Tempest Sugarhouse Weather
-              </span>
-            </h1>
-            <div className="w-16" />
+          <div className="max-w-9xl mx-auto h-full relative">
+            <div className="h-full flex items-center justify-center">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 
+                             font-bold text-center tracking-tight">
+                <span className="weather-text-gradient bg-clip-text text-transparent 
+                                bg-gradient-to-r from-blue-300 via-indigo-300 to-purple-300
+                                font-extrabold">
+                  TempestVue
+                </span>
+              </h1>
+            </div>
           </div>
         </header>
         
-        <main className="pt-28">
+        <main className="pt-20 sm:pt-24 md:pt-28 lg:pt-32">
           {children}
         </main>
       </body>

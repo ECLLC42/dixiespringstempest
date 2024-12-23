@@ -19,36 +19,40 @@ export function WeatherMetric({
 }: WeatherMetricProps) {
   const sizeClasses = {
     default: {
-      icon: 'text-4xl',
-      value: 'text-3xl',
-      label: 'text-lg'
+      container: 'h-full p-3',
+      wrapper: 'h-full flex flex-col items-center justify-between',
+      icon: 'text-2xl md:text-3xl flex items-center',
+      value: 'text-2xl flex items-center',
+      label: 'text-xs md:text-sm flex items-center'
     },
     large: {
-      icon: 'text-6xl',
-      value: 'text-5xl',
-      label: 'text-xl'
+      container: 'h-full p-4',
+      wrapper: 'h-full flex flex-col items-center justify-between',
+      icon: 'text-3xl md:text-4xl flex items-center',
+      value: 'text-3xl flex items-center',
+      label: 'text-sm flex items-center'
     }
   };
 
   return (
     <Card 
       variant="metric" 
-      className={`animate-fade-in ${className}`}
+      className={`${sizeClasses[size].container} ${className}`}
     >
-      <div className="flex items-center gap-6">
-        <div className={`${sizeClasses[size].icon} opacity-80`}>
+      <div className={sizeClasses[size].wrapper}>
+        <span className={`${sizeClasses[size].icon} opacity-80 flex items-center justify-center`}>
           {icon}
-        </div>
-        <div>
+        </span>
+        <div className="flex flex-col items-center justify-center">
           <div className={`
-            ${sizeClasses[size].value} 
-            font-light tracking-tight
-            flex items-center gap-2
+            ${sizeClasses[size].value}
+            font-medium tracking-tight
+            flex items-center justify-center gap-1
           `}>
             {value}
             {trend && (
               <span className={`
-                text-2xl
+                text-base flex items-center
                 ${trend === 'up' ? 'text-orange-400' : 'text-blue-400'}
               `}>
                 {trend === 'up' ? '↑' : '↓'}
@@ -57,7 +61,7 @@ export function WeatherMetric({
           </div>
           <div className={`
             ${sizeClasses[size].label}
-            text-white/60
+            text-gray-400 mt-1 flex items-center justify-center
           `}>
             {label}
           </div>
