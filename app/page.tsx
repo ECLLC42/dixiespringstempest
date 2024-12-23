@@ -6,7 +6,6 @@ import { WeatherMetric } from '@/components/WeatherMetric';
 import { WeatherIcon, IconType, getWeatherEmoji } from '@/components/WeatherIcon';
 import { WeatherCharts } from '@/components/WeatherCharts';
 import { MonthlyInsights } from '@/components/MonthlyInsights';
-import { TimeLapse } from '@/components/TimeLapse';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
 
@@ -50,7 +49,7 @@ export default function Home() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [chartData, setChartData] = useState<any>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [activeTab, setActiveTab] = useState<'current' | 'charts' | 'monthly' | 'timelapse'>('current');
+  const [activeTab, setActiveTab] = useState<'current' | 'charts' | 'monthly'>('current');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,7 +106,7 @@ export default function Home() {
                           webkit-overflow-scrolling-touch">
             {/* Left side - Tab buttons */}
             <div className="flex gap-1.5 md:gap-2 px-0.5"> {/* Reduced gap, added padding for touch */}
-              {['current', 'charts', 'monthly', 'timelapse'].map((tab) => (
+              {['current', 'charts', 'monthly'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab as any)}
@@ -236,7 +235,6 @@ export default function Home() {
 
         {activeTab === 'charts' && <WeatherCharts data={chartData} showOnly={['temperature', 'humidity', 'rain']} />}
         {activeTab === 'monthly' && <MonthlyInsights />}
-        {activeTab === 'timelapse' && <TimeLapse />}
 
         {/* Last Updated */}
         {activeTab === 'current' && (
