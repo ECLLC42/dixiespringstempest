@@ -31,6 +31,10 @@ export async function GET() {
     );
 
     console.log('Current Temperature (F):', response.data.current_conditions.air_temperature);
+    console.log('Weather API Response:', {
+      timestamp: response.data.current_conditions?.timestamp,
+      temp: response.data.current_conditions?.air_temperature
+    });
 
     return NextResponse.json(response.data);
   } catch (err) {

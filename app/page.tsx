@@ -45,21 +45,33 @@ const WeatherRadar = dynamic(
 
 export default function Home() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/weather');
         setWeatherData(response.data);
+        setLastUpdated(new Date());
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 60000); // Update every minute
+    
+    // Set up two intervals - one for API updates and one for page refresh
+    const fetchInterval = setInterval(() => {
+      fetchData();
+    }, 60000);
+    const refreshInterval = setInterval(() => {
+      window.location.reload();
+    }, 60000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(fetchInterval);
+      clearInterval(refreshInterval);
+    };
   }, []);
 
   if (!weatherData) {
@@ -174,7 +186,7 @@ export default function Home() {
           </section>
 
           <div className="mt-4 text-xs text-gray-400 text-center">
-            Last updated: {new Date(current.timestamp * 1000).toLocaleString()}
+            Last updated: {lastUpdated.toLocaleString()}
           </div>
         </div>
       </div>
