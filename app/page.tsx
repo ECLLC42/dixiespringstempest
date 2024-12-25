@@ -98,24 +98,44 @@ export default function Home() {
   return (
     <main className="min-h-screen p-2 md:p-4 max-w-7xl mx-auto">
       {/* Fixed position tabs - Optimized for mobile */}
-      <div className="fixed top-14 md:top-16 lg:top-18 left-0 right-0 z-40 
+      <header className="w-full 
+        h-10 
+        px-2 
+        py-1 
+        border-b border-white/10 
+        backdrop-blur-md fixed top-0 z-50 
+        bg-gradient-to-r from-blue-400/30 via-purple-400/30 to-blue-400/30">
+        <div className="max-w-7xl mx-auto h-full relative">
+          <div className="h-full flex items-center justify-center">
+            <h1 className="text-base 
+                     font-bold text-center tracking-tight">
+              <span className="weather-text-gradient">
+                TempestVue
+              </span>
+            </h1>
+          </div>
+        </div>
+      </header>
+
+      <div className="fixed top-10 left-0 right-0 z-40 
                       bg-gray-950/80 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-2 md:px-4">
-          <div className="h-12 md:h-14 flex items-center justify-between 
+        <div className="max-w-7xl mx-auto px-2">
+          <div className="h-8 
+                          flex items-center justify-between 
                           overflow-x-auto scrollbar-hide 
                           webkit-overflow-scrolling-touch">
             {/* Left side - Tab buttons */}
-            <div className="flex gap-1.5 md:gap-2 px-0.5"> {/* Reduced gap, added padding for touch */}
+            <div className="flex gap-1 px-0.5">
               {['current', 'charts', 'monthly'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab as any)}
                   className={`
-                    px-3 md:px-4 py-1.5 md:py-2 
+                    px-2 py-1 
                     rounded-lg transition-all
                     whitespace-nowrap
-                    text-sm md:text-base
-                    active:scale-95 /* iOS touch feedback */
+                    text-xs 
+                    active:scale-95
                     ${activeTab === tab 
                       ? 'bg-indigo-500/90 text-white font-medium shadow-lg shadow-indigo-500/20' 
                       : 'bg-gray-900/90 text-white/70 hover:bg-gray-800/90 hover:text-white'
@@ -127,21 +147,20 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right side - Station Name - Optimized for small screens */}
-            <div className="text-xs sm:text-sm md:text-base 
+            {/* Right side - Station Name */}
+            <div className="text-xs 
                             font-light tracking-wide text-gray-300/80
-                            flex items-center gap-1.5 ml-3 md:ml-6
-                            shrink-0"> {/* Prevent shrinking */}
-              <span className="text-base md:text-lg">📍</span>
-              <span className="font-medium hidden sm:inline">Salt Lake City Station</span>
-              <span className="font-medium sm:hidden">SLC</span> {/* Short name for mobile */}
+                            flex items-center gap-1 ml-2 
+                            shrink-0">
+              <span className="text-sm">📍</span>
+              <span className="font-medium">Dixie</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Adjust content spacing */}
-      <div className="pt-12 md:pt-14"> {/* Match navbar height */}
+      <div className="pt-20">
         {/* Content Area */}
         {activeTab === 'current' && (
           <div className="relative">
