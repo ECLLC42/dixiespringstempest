@@ -100,14 +100,14 @@ export default function Home() {
       {/* Single header with both title and tabs */}
       <header className="w-full fixed top-0 left-0 right-0 z-50">
         {/* Title bar */}
-        <div className="h-10 
-             px-2 py-1
+        <div className="h-8 
+             px-2 
              border-b border-white/10 
              backdrop-blur-md
              bg-gradient-to-r from-blue-400/30 via-purple-400/30 to-blue-400/30">
           <div className="max-w-7xl mx-auto h-full">
             <div className="h-full flex items-center justify-center">
-              <h1 className="text-base font-bold text-center tracking-tight">
+              <h1 className="text-sm font-bold text-center tracking-tight">
                 <span className="weather-text-gradient">
                   TempestVue
                 </span>
@@ -120,19 +120,19 @@ export default function Home() {
         <div className="h-8 
              bg-gray-950/80 backdrop-blur-sm
              border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-2">
+          <div className="max-w-7xl mx-auto px-1">
             <div className="h-full flex items-center justify-between">
               {/* Left side - Tab buttons */}
-              <div className="flex gap-1 px-0.5">
+              <div className="flex gap-0.5">
                 {['current', 'charts', 'monthly'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab as any)}
                     className={`
-                      px-2 py-1 
-                      rounded-lg transition-all
+                      px-1.5 py-0.5
+                      rounded-md transition-all
                       whitespace-nowrap
-                      text-xs 
+                      text-xs
                       active:scale-95
                       ${activeTab === tab 
                         ? 'bg-indigo-500/90 text-white font-medium shadow-lg shadow-indigo-500/20' 
@@ -146,62 +146,19 @@ export default function Home() {
               </div>
 
               {/* Right side - Station Name */}
-              <div className="text-xs 
+              <div className="text-[10px] 
                               font-light tracking-wide text-gray-300/80
-                              flex items-center gap-1 ml-2">
-                <span className="text-sm">📍</span>
-                <span className="font-medium">Dixie</span>
+                              flex items-center gap-0.5">
+                <span className="text-xs">📍</span>
+                <span className="font-medium">Dixie Springs</span>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main content - Adjust top padding to account for header height */}
-      <div className="fixed top-10 left-0 right-0 z-40 
-                      bg-gray-950/80 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-2">
-          <div className="h-8 
-                          flex items-center justify-between 
-                          overflow-x-auto scrollbar-hide 
-                          webkit-overflow-scrolling-touch">
-            {/* Left side - Tab buttons */}
-            <div className="flex gap-1 px-0.5">
-              {['current', 'charts', 'monthly'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab as any)}
-                  className={`
-                    px-2 py-1 
-                    rounded-lg transition-all
-                    whitespace-nowrap
-                    text-xs 
-                    active:scale-95
-                    ${activeTab === tab 
-                      ? 'bg-indigo-500/90 text-white font-medium shadow-lg shadow-indigo-500/20' 
-                      : 'bg-gray-900/90 text-white/70 hover:bg-gray-800/90 hover:text-white'
-                    }
-                  `}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
-            </div>
-
-            {/* Right side - Station Name */}
-            <div className="text-xs 
-                            font-light tracking-wide text-gray-300/80
-                            flex items-center gap-1 ml-2 
-                            shrink-0">
-              <span className="text-sm">📍</span>
-              <span className="font-medium">Dixie</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Adjust content spacing */}
-      <div className="pt-20">
+      {/* Content area */}
+      <div className="pt-16 px-2"> {/* Adjusted padding-top for smaller header */}
         {/* Content Area */}
         {activeTab === 'current' && (
           <div className="relative">
