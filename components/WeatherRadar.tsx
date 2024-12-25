@@ -29,9 +29,10 @@ interface WeatherLayerState {
 }
 
 export default function WeatherRadar({ 
-  lat = 37.13546,  // Center of North America (approximately)
-  lon = -113.38606, // Center of North America (approximately)
-  zoom = 0      // Zoomed out to show the continent
+  lat = 37.13546,  // Dixie Springs
+  lon = -113.38606, // Dixie Springs
+  zoom = 12      // Good local view, showing Dixie Springs and surrounding area
+  
 }: WeatherRadarProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [map, setMap] = useState<LeafletMap | null>(null);
