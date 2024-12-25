@@ -100,14 +100,14 @@ export default function Home() {
       {/* Single header with both title and tabs */}
       <header className="w-full fixed top-0 left-0 right-0 z-50">
         {/* Title bar */}
-        <div className="h-8 
+        <div className="h-10 
              px-2 
              border-b border-white/10 
              backdrop-blur-md
              bg-gradient-to-r from-blue-400/30 via-purple-400/30 to-blue-400/30">
           <div className="max-w-7xl mx-auto h-full">
             <div className="h-full flex items-center justify-center">
-              <h1 className="text-sm font-bold text-center tracking-tight">
+              <h1 className="text-base font-bold text-center tracking-tight">
                 <span className="weather-text-gradient">
                   TempestVue
                 </span>
@@ -150,7 +150,7 @@ export default function Home() {
                               font-light tracking-wide text-gray-300/80
                               flex items-center gap-0.5">
                 <span className="text-xs">📍</span>
-                <span className="font-medium">Dixie Springs</span>
+                <span className="font-medium">Dixie Springs Station</span>
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default function Home() {
       </header>
 
       {/* Content area */}
-      <div className="pt-16 px-2"> {/* Adjusted padding-top for smaller header */}
+      <div className="pt-[4.5rem]">
         {/* Content Area */}
         {activeTab === 'current' && (
           <div className="relative">
